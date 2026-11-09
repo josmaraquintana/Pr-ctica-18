@@ -1,0 +1,100 @@
+/**
+ * Josmara Alexa Quintana Benitez 00000262727-----------------------------------------------
+ * EJERCICIO 1
+ * Crea una función principal que reciba un callback como parámetro.
+ * Utiliza la función setTimeout para programar una espera de exactamente 3 segundos (3000 milisegundos).
+ * Una vez transcurrido ese tiempo, ejecuta el callback para imprimir un mensaje de éxito en la consola.
+ */
+
+//Primero cree una función principal que recibe un callback como parámetro
+function funcPrincipal(callback){
+    setTimeout(() => {
+        callback()
+    }, 3000) //Tiempo de 3 segundos de espera para poder ejecutar el callback
+}
+//Función que se ejecuta como callback y muestra un mensaje de éxito en la consola
+function mensajeExito(){
+    console.log("La función se ejecuto corractamente.")
+}
+
+/**
+ * EJERCICIO 2
+ *Crea una función principal que reciba tres parámetros: dos valores numéricos y un callback.
+ *Diseña la lógica para que el callback se encargue de realizar una operación matemática con esos dos números.
+ *Asegúrate de que tu función principal sea capaz de manejar sumas, restas, multiplicaciones y divisiones dependiendo del callback que se le pase al invocar.
+ * Muestra el resultado final en la consola.
+ */
+function funcPrincipalDos(num1, num2, callback){
+    const resultado = callback(num1, num2) //Se ejecuta el callback
+    console.log("Resultado:", resultado) //Se imprime el resultado delv calback en la consola
+}
+//Funciones flecha para establecer las operacioens matematicas que se pueden realizar
+const suma = (a,b) => a + b 
+const resta = (a,b) => a - b
+const multiplicacion = (a,b) => a * b
+const division = (a,b) => a / b
+
+
+/**
+ * EJERCICIO 3
+ * Define tres funciones distintas que representan los pasos de una receta: cortarIngredientes, cocinar y servirPlato.
+ * En la función cortarIngredientes, utiliza setTimeout para simular el tiempo que toma realizar esa acción.
+ * Asegúrate de que cada función reciba un callback y lo ejecute únicamente cuando haya terminado su propio proceso.
+ * Anida las funciones (Callback Hell básico) para simular el flujo real: primero se cortan los ingredientes, después se cocinan y, por último, se sirve el plato.
+
+ */
+
+function cortarIngredientes(ingredientes, callback){
+    setTimeout(() => {
+        console.log(`Cortando ${ingredientes}`)
+        callback()
+    }, 2000)
+}
+
+function cocinar(accion, callback){
+    setTimeout(() => {
+        console.log(`Cocinando ${accion}`)
+        callback()
+    }, 2500)
+}
+
+function servirPlato(plato){
+    console.log("Listo para servir: ", plato)
+}
+
+function prepararReceta(plato, callback){
+    console.log("Iniciamos la preparación de la receta: ", plato)
+    cortarIngredientes("vegetales",()=>{
+        cocinar("Saltear", ()=>{
+            cortarIngredientes("pollo", ()=>{
+                cocinar("Freir", ()=>{
+                    cocinar("Mezclar",()=>{
+                        servirPlato(plato)
+                        callback()
+                    })
+                })
+            })
+        })
+    })
+
+}
+//===============================================================================
+//======================PRUEBAS==================================================
+//===============================================================================
+console.log("Ejercicio 2")
+console.log("Suma")
+funcPrincipalDos(10, 5, suma)
+console.log("Resta")
+funcPrincipalDos(10, 5, resta)
+console.log("Multiplicación")
+funcPrincipalDos(10, 5, multiplicacion)
+console.log("División")
+funcPrincipalDos(10, 5, division)
+console.log("Ejercicio 3")
+prepararReceta("Pollo con verduras", ()=>{console.log("Receta completa")})
+
+console.log("Ejercicio 1")
+funcPrincipal(mensajeExito);
+
+
+
